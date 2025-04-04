@@ -2,6 +2,9 @@ import express from "express";
 import authRoutes from "./routes/auth.route";
 import messagesRoutes from "./routes/message.route";
 
+import dotenv from "dotenv";
+
+dotenv.config();
 const app = express();
 
 app.use("/api/auth", authRoutes);
