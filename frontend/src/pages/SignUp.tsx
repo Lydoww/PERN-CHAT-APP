@@ -11,6 +11,7 @@ const SignUp = () => {
     confirmPassword: "",
     gender: "",
   });
+
   const { loading, signup } = useSignup();
 
   const handleCheckboxChange = (gender: "male" | "female") => {

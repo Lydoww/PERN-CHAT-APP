@@ -26,7 +26,7 @@ const AuthContext = createContext<{
   isLoading: true,
 });
 
-export const useAuthContex = () => {
+export const useAuthContext = () => {
   return useContext(AuthContext);
 };
 

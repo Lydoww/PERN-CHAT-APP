@@ -2,12 +2,13 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
-import { useAuthContex } from "./context/AuthContext";
+import { useAuthContext } from "./context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  const { authUser, setAuthUser, isLoading } = useAuthContex;
+  const { authUser, isLoading } = useAuthContext();
 
-  if(isLoading) return null // optimize for a skeleton maybe
+  if (isLoading) return null; // optimize for a skeleton maybe
 
   return (
     <div className="p-4 h-screen flex items-center justify-center">
@@ -25,6 +26,7 @@ function App() {
           element={!authUser ? <Login /> : <Navigate to={"/"} />}
         />
       </Routes>
+      <Toaster />
     </div>
   );
 }
