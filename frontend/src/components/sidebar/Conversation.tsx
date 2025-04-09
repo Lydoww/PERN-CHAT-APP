@@ -1,5 +1,5 @@
 import { useSocketContext } from "../../context/SocketContext";
-import useConversation from "../../zustand/useConversation";
+import useConversation, { ConversationType } from "../../zustand/useConversation";
 
 const Conversation = ({ conversation, emoji }: { conversation: ConversationType; emoji: string }) => {
 	const { setSelectedConversation, selectedConversation } = useConversation();
