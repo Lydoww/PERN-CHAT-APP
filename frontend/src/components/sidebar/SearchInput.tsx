@@ -35,7 +35,7 @@ const SearchInput = () => {
 				value={search}
 				onChange={(e) => setSearch(e.target.value)}
 			/>
-			<button type='submit' className='btn md:btn-md btn-sm btn-circle bg-sky-500 text-white  '>
+			<button type='submit' className='btn md:btn-md btn-sm btn-circle bg-sky-700 text-white  '>
 				<Search className='w-4 h-4 md:w-6 md:h-6 outline-none' />
 			</button>
 		</form>
