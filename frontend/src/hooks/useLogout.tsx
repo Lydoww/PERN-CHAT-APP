@@ -7,9 +7,11 @@ const useLogout = () => {
   const { setAuthUser } = useAuthContext();
 
   const logout = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const res = await fetch("/api/auth/logout", {});
+      const res = await fetch("/api/auth/logout", {
+        method: "POST",
+      });
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error);
@@ -17,7 +19,7 @@ const useLogout = () => {
       setAuthUser(null);
     } catch (error: any) {
       console.error(error.message);
-      toast.error(error.message)
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -25,4 +27,4 @@ const useLogout = () => {
   return { loading, logout };
 };
 
-export default useLogout
+export default useLogout;

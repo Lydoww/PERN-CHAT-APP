@@ -7,8 +7,8 @@ const useLogin = () => {
   const { setAuthUser } = useAuthContext();
 
   const login = async (username: string, password: string) => {
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {

@@ -15,8 +15,8 @@ const useSignup = () => {
   const { setAuthUser } = useAuthContext();
 
   const signup = async (inputs: SignupInputs) => {
-      try {
-        setLoading(true);
+    setLoading(true);
+    try {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
@@ -30,7 +30,7 @@ const useSignup = () => {
       setAuthUser(data);
     } catch (error: any) {
       console.error(error.message);
-      toast.error(error.message)
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }

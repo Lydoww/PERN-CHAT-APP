@@ -9,23 +9,24 @@ const useGetMessages = () => {
   useEffect(() => {
     const getMessages = async () => {
       if (!selectedConversation) return;
-      setMessages([]);
       setLoading(true);
+      setMessages([]);
       try {
         const res = await fetch(`/api/messages/${selectedConversation.id}`);
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "an error occured");
-        setMessages(data);
+        if (!res.ok) throw new Error(data.error || "An error occurred");
+        setMessages(Array.isArray(data.messages) ? data.messages : []);
       } catch (error: any) {
         toast.error(error.message);
+        setMessages([]);
       } finally {
         setLoading(false);
       }
     };
+
     getMessages();
   }, [selectedConversation, setMessages]);
 
-  return { loading, messages };
+  return { messages, loading };
 };
-
 export default useGetMessages;
