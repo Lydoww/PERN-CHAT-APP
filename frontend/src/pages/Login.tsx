@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
-import StarField from "../components/style/StarField";
+import StarField from "../components/threeJs/StarField";
 
 const Login = () => {
   const [inputs, setInputs] = useState({
