@@ -27,6 +27,7 @@ const useSignup = () => {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+      toast.success("Inscription réussie")
       setAuthUser(data);
     } catch (error: any) {
       console.error(error.message);

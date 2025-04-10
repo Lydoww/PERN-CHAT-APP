@@ -20,6 +20,7 @@ const useLogin = () => {
       const data = await res.json();
 
       if (!res.ok) throw new Error(data.error);
+      toast.success('Connexion réussie')
       setAuthUser(data);
     } catch (error: any) {
       toast.error(error.message);

@@ -16,6 +16,7 @@ const useLogout = () => {
       if (!res.ok) {
         throw new Error(data.error);
       }
+      toast.success("Déconnexion réussie")
       setAuthUser(null);
     } catch (error: any) {
       console.error(error.message);
