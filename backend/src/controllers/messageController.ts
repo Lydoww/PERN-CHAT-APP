@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import prisma from "../db/prisma";
+import { getReceiverSocketId, io } from "../socket/socket";
 
 export const sendMessage = async (req: Request, res: Response) => {
   try {
@@ -48,6 +49,12 @@ export const sendMessage = async (req: Request, res: Response) => {
       });
     }
 
+    const receiverSocketId = getReceiverSocketId(receiverId);
+
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
     res.status(201).json(newMessage);
   } catch (error: any) {
     console.error("Error in sendMessage controller", error.message);
@@ -76,7 +83,7 @@ export const getMessages = async (req: Request, res: Response) => {
     });
 
     if (!conversation) {
-      res.status(200).json({});
+      res.status(200).json([]);
       return;
     }
 
@@ -102,6 +109,7 @@ export const getUsersForSidebar = async (req: Request, res: Response) => {
         profilePic: true,
       },
     });
+
     res.status(200).json(users);
   } catch (error: any) {
     console.error("Error in getUsersForSidebar controller", error.message);

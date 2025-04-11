@@ -15,7 +15,7 @@ const useGetMessages = () => {
         const res = await fetch(`/api/messages/${selectedConversation.id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "An error occurred");
-        setMessages(Array.isArray(data.messages) ? data.messages : []);
+        setMessages(Array.isArray(data) ? data : []);
       } catch (error: any) {
         toast.error(error.message);
         setMessages([]);
