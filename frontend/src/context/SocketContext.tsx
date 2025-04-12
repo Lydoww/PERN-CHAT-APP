@@ -35,13 +35,7 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
   const { authUser, isLoading } = useAuthContext();
 
   useEffect(() => {
-    console.log("🌀 Socket effect triggered 👀");
-    console.log("authUser:", authUser);
-    console.log("isLoading:", isLoading);
-
     if (!isLoading && authUser) {
-      console.log("📡 Connecting socket for user:", authUser.id);
-
       const socket = io(socketURL, {
         query: { userId: authUser.id },
         transports: ["websocket"], // pour forcer le bon transport
@@ -54,7 +48,6 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
       });
 
       socket.on("getOnlineUsers", (users: string[]) => {
-        console.log("👥 Online users received:", users);
         setOnlineUsers(users);
       });
 
@@ -63,7 +56,6 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
       });
 
       return () => {
-        console.log("🧹 Cleaning up socket");
         socket.disconnect();
         socketRef.current = null;
       };
@@ -71,7 +63,6 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
 
     // Cas où l'utilisateur se déconnecte
     if (!isLoading && !authUser && socketRef.current) {
-      console.log("🧹 Cleaning up socket due to logout");
       socketRef.current.disconnect();
       socketRef.current = null;
       setOnlineUsers([]);
@@ -79,9 +70,7 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
   }, [authUser, isLoading]);
 
   return (
-    <SocketContext.Provider
-      value={{ socket: socketRef.current, onlineUsers }}
-    >
+    <SocketContext.Provider value={{ socket: socketRef.current, onlineUsers }}>
       {children}
     </SocketContext.Provider>
   );

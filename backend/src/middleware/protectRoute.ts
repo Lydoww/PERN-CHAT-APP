@@ -48,7 +48,6 @@ const protectRoute = async (
 
     next();
   } catch (error: any) {
-    console.log("Error in protectRoute middleware", error.message);
     res.status(401).json({ message: "Unauthorized - Invalid token" });
     return;
   }
