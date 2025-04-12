@@ -1,6 +1,7 @@
 # 🚀 PulseChat - Real-time Chat App
 
-![PulseChat Banner](./frontend/public/preview.png) <!-- Optionnel si t'as une image de présentation -->
+![PulseChat](https://github.com/user-attachments/assets/1fce0af7-90b5-4fde-ae63-5cad77083d19)
+
 
 PulseChat is a full-stack real-time chat application built with the **PERN stack**, featuring real-time messaging, animated UI, and modern design.
 
