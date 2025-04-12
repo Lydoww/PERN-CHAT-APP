@@ -5,14 +5,8 @@ const StarField = () => {
   const mountRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // ======== OPTIMISATIONS CLÉS ========
-    // 1. Réduction du nombre d'étoiles fixes (8000 → 4000)
-    // 2. Simplification des étoiles filantes
-    // 3. Utilisation de requestAnimationFrame avec gestion FPS
-    // 4. Optimisation mémoire avec disposal propre
-    // 5. Désactivation de l'antialiasing inutile pour les points
+    console.log("✨ StarField mounted");
 
-    // Initialisation
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000010);
 
@@ -24,20 +18,24 @@ const StarField = () => {
     );
     camera.position.z = 5;
 
-    // Renderer optimisé
     const renderer = new THREE.WebGLRenderer({
-      antialias: false, // Désactivé car peu visible sur les points
-      alpha: true,
-      powerPreference: "low-power", // Spécifique mobile
+      alpha: false, // on désactive alpha pour s'assurer que le fond est visible
+      powerPreference: "low-power",
     });
-    renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio)); // Limite la résolution
+    renderer.setClearColor(0x000010); // force un fond sombre
+    renderer.setPixelRatio(Math.min(1.5, window.devicePixelRatio));
     renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // 🔍 Test visuel : bordure verte autour du canvas
+
+    renderer.domElement.style.position = "absolute";
+    renderer.domElement.style.top = "0";
+    renderer.domElement.style.left = "0";
     mountRef.current?.appendChild(renderer.domElement);
 
-    // ======== ÉTOILES FIXES ========
+    // === ÉTOILES FIXES ===
     const starsCount = 6000;
     const positions = new Float32Array(starsCount * 3);
-
     for (let i = 0; i < starsCount; i++) {
       const i3 = i * 3;
       positions[i3] = (Math.random() - 0.5) * 2000;
@@ -109,15 +107,11 @@ const StarField = () => {
       }
 
       update() {
-        // Mise à jour optimisée sans recréer de Vector3
         const positions = this.positions;
-
-        // Décalage des positions
         for (let i = positions.length - 1; i >= 3; i--) {
           positions[i] = positions[i - 3];
         }
 
-        // Nouvelle position de tête
         positions[0] += this.velocity.x;
         positions[1] += this.velocity.y;
         positions[2] += this.velocity.z;
@@ -125,7 +119,6 @@ const StarField = () => {
         this.mesh.geometry.attributes.position.needsUpdate = true;
         this.lifespan--;
 
-        // Opacité plus rapide
         (this.mesh.material as THREE.LineBasicMaterial).opacity =
           this.lifespan / 80;
       }
@@ -139,35 +132,29 @@ const StarField = () => {
 
     const shootingStars: ShootingStar[] = [];
     let lastStarTime = 0;
-    const starInterval = 2000; // Toutes les 2 secondes max
+    const starInterval = 2000;
 
-    // ======== BOUCLE D'ANIMATION OPTIMISÉE ========
     let then = performance.now();
-    const fpsInterval = 1000 / 60; // Cible 60 FPS
+    const fpsInterval = 1000 / 60;
 
     const animate = (now: number) => {
       requestAnimationFrame(animate);
-
-      // Contrôle du FPS
       const elapsed = now - then;
       if (elapsed < fpsInterval) return;
       then = now - (elapsed % fpsInterval);
 
-      // Rotation plus lente
       stars.rotation.y += 0.0001;
       stars.rotation.x += 0.00005;
 
-      // Gestion des étoiles filantes avec throttle
       const currentTime = performance.now();
       if (
         currentTime - lastStarTime > starInterval &&
-        shootingStars.length < 2 // Maximum 2 étoiles
+        shootingStars.length < 2
       ) {
         shootingStars.push(new ShootingStar());
         lastStarTime = currentTime;
       }
 
-      // Mise à jour optimisée avec backward loop
       for (let i = shootingStars.length - 1; i >= 0; i--) {
         shootingStars[i].update();
         if (shootingStars[i].lifespan <= 0) {
@@ -181,7 +168,6 @@ const StarField = () => {
 
     animate(performance.now());
 
-    // ======== GESTION DES RESSOURCES ========
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -193,22 +179,14 @@ const StarField = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
       renderer.dispose();
-
-      // Nettoyage complet
       scene.remove(stars);
       starsGeometry.dispose();
       starsMaterial.dispose();
-
       shootingStars.forEach((star) => star.dispose());
     };
   }, []);
 
-  return (
-    <div
-      ref={mountRef}
-      className="fixed top-0 left-0 w-full h-full -z-10 pointer-events-none"
-    />
-  );
+  return <div ref={mountRef} className="fixed inset-0 z-0" />;
 };
 
 export default StarField;
