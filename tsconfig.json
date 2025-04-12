@@ -1,14 +1,18 @@
 {
 	"compilerOptions": {
 	  "target": "ES2020",
-	  "module": "NodeNext",
-	  "moduleResolution": "NodeNext",
+	  "module": "CommonJS",  // Changé depuis NodeNext
+	  "moduleResolution": "node",  // Changé depuis NodeNext
 	  "outDir": "./backend/dist",
 	  "rootDir": "./backend",
 	  "strict": true,
 	  "esModuleInterop": true,
-	  "skipLibCheck": true
+	  "skipLibCheck": true,
+	  "baseUrl": "./backend/src",  // Ajouté
+	  "paths": {
+		"@/*": ["./*"]  // Ajouté pour les alias
+	  }
 	},
 	"include": ["backend/src/**/*"],
-	"exclude": ["node_modules", "**/*.spec.ts", "frontend"]
+	"exclude": ["node_modules", "frontend"]
   }

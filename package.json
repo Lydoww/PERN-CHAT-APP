@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
-    "dev": "nodemon --watch backend/src --exec tsx backend/src/index.ts",
-    "build": "npm install && tsc && npx prisma generate --schema=./backend/prisma/schema.prisma && cd frontend && rm -rf node_modules package-lock.json && npm install && npm run build",
+    "dev": "nodemon --watch backend/src --exec ts-node backend/src/index.ts",
+    "build": "tsc && npm install && npx prisma generate --schema=./backend/prisma/schema.prisma && cd frontend && npm install && npm run build",
     "start": "node backend/dist/src/index.js"
   },
   "keywords": [],
