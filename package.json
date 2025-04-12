@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon --watch backend/src --exec ts-node backend/src/index.ts",
-    "build": "tsc && npm install && npx prisma generate --schema=./backend/prisma/schema.prisma && cd frontend && npm install && npm run build",
+    "build": "tsc && npx prisma generate --schema=./backend/prisma/schema.prisma && cd frontend && npm install && npm run build",
     "start": "node backend/dist/src/index.js"
   },
   "keywords": [],
