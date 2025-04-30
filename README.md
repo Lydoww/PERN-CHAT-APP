@@ -34,3 +34,7 @@ PulseChat is a full-stack real-time chat application built with the **PERN stack
 - ✅ Production-ready build & deployment on Render
 
 ---
+
+## 🧪 Try PulseChat
+
+Feel free to create two accounts to test the real-time chat between users. The users you see listed are other people who have already tried the app – it’s a great opportunity to test the live chat features in action!
