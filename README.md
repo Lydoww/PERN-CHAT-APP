@@ -7,6 +7,7 @@ PulseChat is a full-stack real-time chat application built with the **PERN stack
 
 ### 🌐 Live demo:
 ➡️ [https://pern-chat-app-ibpf.onrender.com](https://pern-chat-app-ibpf.onrender.com)
+➡️ Hosted on Vercel's free tier — please allow a few seconds for the site to load.
 
 ---
 
