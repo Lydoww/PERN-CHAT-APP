@@ -6,7 +6,7 @@
 PulseChat is a full-stack real-time chat application built with the **PERN stack**, featuring real-time messaging, animated UI, and modern design.
 
 ### 🌐 Live demo:
-➡️ [https://pern-chat-app-ibpf.onrender.com](https://pern-chat-app-ibpf.onrender.com)
+➡️ [https://pern-chat-app-ibpf.onrender.com](https://novashop.netlify.app/)
 
 ---
 
